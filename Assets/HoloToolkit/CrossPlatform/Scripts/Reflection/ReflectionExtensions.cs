@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
-
+namespace HoloToolkit {
 #if UNITY_METRO && !UNITY_EDITOR
 
 using System;
@@ -169,24 +169,21 @@ public static class ReflectionExtensions
 }
 #else
 
-using System;
+    using System;
 
-public static class ReflectionExtensions
-{
-    public static Type GetTypeInfo(this Type type)
-    {
-        return type;
-    }
+    public static class ReflectionExtensions {
+        public static Type GetTypeInfo(this Type type) {
+            return type;
+        }
 
-    public static Type AsType(this Type type)
-    {
-        return type;
-    }
+        public static Type AsType(this Type type) {
+            return type;
+        }
 
-    public static bool IsEnum(this Type type)
-    {
-        return type.IsEnum;
+        public static bool IsEnum(this Type type) {
+            return type.IsEnum;
+        }
     }
-}
 
 #endif
+}
