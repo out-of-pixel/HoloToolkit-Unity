@@ -1,13 +1,10 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using UnityEngine.VR.WSA;
-using System;
 using HoloToolkit.Unity;
+using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace HoloToolkit.Examples.SpatialUnderstandingFeatureOverview
 {
@@ -347,59 +344,59 @@ namespace HoloToolkit.Examples.SpatialUnderstandingFeatureOverview
             {
                 ClearGeometry();
             }
-            if (Input.GetKeyDown(KeyCode.A))
+            if (Input.GetKeyDown(KeyCode.F))
             {
                 Query_PlayspaceAlignment();
             }
 
             // Queries - topology
-            if (Input.GetKeyDown(KeyCode.S))
+            if (Input.GetKeyDown(KeyCode.G))
             {
                 Query_Topology_FindPositionOnWall();
             }
-            if (Input.GetKeyDown(KeyCode.D))
+            if (Input.GetKeyDown(KeyCode.H))
             {
                 Query_Topology_FindLargePositionsOnWalls();
             }
-            if (Input.GetKeyDown(KeyCode.F))
+            if (Input.GetKeyDown(KeyCode.J))
             {
                 Query_Topology_FindLargeWall();
             }
-            if (Input.GetKeyDown(KeyCode.L))
+            if (Input.GetKeyDown(KeyCode.K))
             {
                 Query_Topology_FindPositionsOnFloor();
             }
-            if (Input.GetKeyDown(KeyCode.K))
+            if (Input.GetKeyDown(KeyCode.L))
             {
                 Query_Topology_FindLargestPositionsOnFloor();
             }
-            if (Input.GetKeyDown(KeyCode.J))
+            if (Input.GetKeyDown(KeyCode.Semicolon))
             {
                 Query_Topology_FindPositionsPlaceable();
             }
 
             // Queries - shapes
-            if (Input.GetKeyDown(KeyCode.Z))
+            if (Input.GetKeyDown(KeyCode.Quote))
             {
                 Query_Shape_FindShapeHalfDims("All Surfaces");
             }
-            if (Input.GetKeyDown(KeyCode.X))
+            if (Input.GetKeyDown(KeyCode.Z))
             {
                 Query_Shape_FindPositionsOnShape("Sittable");
             }
-            if (Input.GetKeyDown(KeyCode.C))
+            if (Input.GetKeyDown(KeyCode.X))
             {
                 Query_Shape_FindShapeHalfDims("Chair");
             }
-            if (Input.GetKeyDown(KeyCode.V))
+            if (Input.GetKeyDown(KeyCode.C))
             {
                 Query_Shape_FindShapeHalfDims("Large Surface");
             }
-            if (Input.GetKeyDown(KeyCode.B))
+            if (Input.GetKeyDown(KeyCode.V))
             {
                 Query_Shape_FindShapeHalfDims("Large Empty Surface");
             }
-            if (Input.GetKeyDown(KeyCode.N))
+            if (Input.GetKeyDown(KeyCode.B))
             {
                 Query_Shape_FindShapeHalfDims("Couch");
             }
