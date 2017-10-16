@@ -1,6 +1,8 @@
-﻿using UnityEngine;
+﻿// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
+using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.XR.WSA.Input;
 
 namespace HoloToolkit.Unity.InputModule
 {
@@ -15,7 +17,7 @@ namespace HoloToolkit.Unity.InputModule
         {
         }
 
-        public void Initialize(IInputSource inputSource, uint sourceId, InteractionSourcePressType pressType, Vector2 position, object tag = null)
+        public void Initialize(IInputSource inputSource, uint sourceId, object tag, InteractionSourcePressInfo pressType, Vector2 position)
         {
             Initialize(inputSource, sourceId, tag, pressType);
             Position = position;

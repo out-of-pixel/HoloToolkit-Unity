@@ -19,27 +19,30 @@ namespace HoloToolkit.Examples.ColorPicker
 
         private bool gazing = false;
 
-        void Update()
+        private void Update()
         {
             if (gazing == false) return;
             UpdatePickedColor(OnGazedColor);
         }
 
-        void UpdatePickedColor(PickedColorCallback cb)
+        private void UpdatePickedColor(PickedColorCallback cb)
         {
             GameObject hitObject = GazeManager.Instance.HitObject;
 
-            if (hitObject != rendererComponent.gameObject) return;
-            
-            Texture2D texture = rendererComponent.material.mainTexture as Texture2D;
+            if (hitObject != rendererComponent.gameObject) { return; }
 
-            //TODO: Fix by adding RaycastHit properties to FocusDetails.
-            //Vector2 pixelUV = hit.textureCoord;            
-            //pixelUV.x *= texture.width;
-            //pixelUV.y *= texture.height;
+            RaycastHit hit = GazeManager.Instance.HitInfo;
 
-            //Color col = texture.GetPixel((int)pixelUV.x, (int)pixelUV.y);
-            //cb.Invoke(col);
+            if (hit.transform.gameObject != rendererComponent.gameObject) { return; }
+
+            var texture = (Texture2D)rendererComponent.material.mainTexture;
+
+            Vector2 pixelUV = hit.textureCoord;
+            pixelUV.x *= texture.width;
+            pixelUV.y *= texture.height;
+
+            Color col = texture.GetPixel((int)pixelUV.x, (int)pixelUV.y);
+            cb.Invoke(col);
         }
 
         public void OnFocusEnter()

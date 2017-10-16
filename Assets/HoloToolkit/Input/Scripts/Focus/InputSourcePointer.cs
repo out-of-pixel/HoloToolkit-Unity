@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -11,8 +10,7 @@ namespace HoloToolkit.Unity.InputModule
     /// Class implementing IPointingSource to demonstrate how to create a pointing source.
     /// This is consumed by SimpleSinglePointerSelector.
     /// </summary>
-    public class InputSourcePointer :
-        IPointingSource
+    public class InputSourcePointer : IPointingSource
     {
         public IInputSource InputSource { get; set; }
 
@@ -34,7 +32,7 @@ namespace HoloToolkit.Unity.InputModule
 
         public float? ExtentOverride { get; set; }
 
-        public IList<LayerMask> PrioritizedLayerMasksOverride { get; set; }
+        public LayerMask[] PrioritizedLayerMasksOverride { get; set; }
 
         private Ray rawRay = default(Ray);
 
@@ -46,9 +44,9 @@ namespace HoloToolkit.Unity.InputModule
             }
             else
             {
-                Debug.Assert(InputSource.SupportsInputInfo(InputSourceId, SupportedInputInfo.Ray));
+                Debug.Assert(InputSource.SupportsInputInfo(InputSourceId, SupportedInputInfo.Pointing));
 
-                InputSource.TryGetPointerRay(InputSourceId, out rawRay);
+                InputSource.TryGetPointingRay(InputSourceId, out rawRay);
             }
 
             if (RayStabilizer != null)
@@ -59,7 +57,6 @@ namespace HoloToolkit.Unity.InputModule
 
         public bool OwnsInput(BaseEventData eventData)
         {
-            // TODO: How do we handle voice here? Do we want to?
             return (OwnAllInput || InputIsFromSource(eventData));
         }
 
@@ -69,8 +66,7 @@ namespace HoloToolkit.Unity.InputModule
 
             return (inputData != null)
                 && (inputData.InputSource == InputSource)
-                && (inputData.SourceId == InputSourceId)
-                ;
+                && (inputData.SourceId == InputSourceId);
         }
     }
 }

@@ -11,11 +11,7 @@ namespace HoloToolkit.Unity.InputModule
     /// This class uses the InputSourcePointer to define the rules of stealing focus when a pointing ray is detected
     /// with a motion controller that supports pointing.
     /// </summary>
-    public class SimpleSinglePointerSelector :
-        MonoBehaviour,
-        ISourceStateHandler,
-        IInputClickHandler,
-        IInputHandler
+    public class SimpleSinglePointerSelector : MonoBehaviour, ISourceStateHandler, IInputHandler
     {
         #region Settings
 
@@ -32,10 +28,10 @@ namespace HoloToolkit.Unity.InputModule
 
         #region Data
 
-        private bool started = false;
+        private bool started;
 
-        private bool addedInputManagerListener = false;
-        private IPointingSource currentPointer = null;
+        private bool addedInputManagerListener;
+        private IPointingSource currentPointer;
 
         private readonly InputSourcePointer inputSourcePointer = new InputSourcePointer();
 
@@ -46,10 +42,6 @@ namespace HoloToolkit.Unity.InputModule
         private void Start()
         {
             started = true;
-
-            InputManager.AssertIsInitialized();
-            GazeManager.AssertIsInitialized();
-            FocusManager.AssertIsInitialized();
 
             AddInputManagerListenerIfNeeded();
             FindCursorIfNeeded();
@@ -77,11 +69,7 @@ namespace HoloToolkit.Unity.InputModule
 
         void ISourceStateHandler.OnSourceDetected(SourceStateEventData eventData)
         {
-            if (IsGazePointerActive && SupportsPointingRay(eventData.InputSource, eventData.SourceId))
-            {
-                AttachInputSourcePointer(eventData);
-                SetPointer(inputSourcePointer);
-            }
+            // Nothing to do on source detected.
         }
 
         void ISourceStateHandler.OnSourceLost(SourceStateEventData eventData)
@@ -90,11 +78,6 @@ namespace HoloToolkit.Unity.InputModule
             {
                 ConnectBestAvailablePointer();
             }
-        }
-
-        void IInputClickHandler.OnInputClicked(InputClickedEventData eventData)
-        {
-            HandleInputAction(eventData);
         }
 
         void IInputHandler.OnInputUp(InputEventData eventData)
@@ -141,7 +124,7 @@ namespace HoloToolkit.Unity.InputModule
                     GetType().Name
                     );
 
-                Cursor[] foundCursors = GameObject.FindObjectsOfType<Cursor>();
+                Cursor[] foundCursors = FindObjectsOfType<Cursor>();
 
                 if ((foundCursors == null) || (foundCursors.Length == 0))
                 {
@@ -170,7 +153,7 @@ namespace HoloToolkit.Unity.InputModule
             {
                 if (currentPointer != null)
                 {
-                    FocusManager.Instance.UnregisterPointer(currentPointer);
+                    FocusManager.Instance.UnRegisterPointer(currentPointer);
                 }
 
                 currentPointer = newPointer;
@@ -269,7 +252,7 @@ namespace HoloToolkit.Unity.InputModule
 
         private bool SupportsPointingRay(IInputSource inputSource, uint sourceId)
         {
-            return inputSource.SupportsInputInfo(sourceId, SupportedInputInfo.Ray);
+            return inputSource.SupportsInputInfo(sourceId, SupportedInputInfo.Pointing);
         }
 
         private void AttachInputSourcePointer(BaseInputEventData eventData)
@@ -299,7 +282,7 @@ namespace HoloToolkit.Unity.InputModule
 
         private bool IsGazePointerActive
         {
-            get { return object.ReferenceEquals(currentPointer, GazeManager.Instance); }
+            get { return ReferenceEquals(currentPointer, GazeManager.Instance); }
         }
 
         #endregion
