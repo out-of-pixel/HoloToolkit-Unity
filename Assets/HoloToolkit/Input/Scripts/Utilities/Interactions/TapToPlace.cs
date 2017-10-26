@@ -41,7 +41,7 @@ namespace HoloToolkit.Unity.InputModule
         [Tooltip("Should the center of the Collider be used instead of the gameObjects world transform.")]
         public bool UseColliderCenter;
 
-        private Interpolator interpolator;
+        protected Interpolator interpolator;
 
         /// <summary>
         /// The default ignore raycast layer built into unity.
@@ -188,7 +188,7 @@ namespace HoloToolkit.Unity.InputModule
         /// <summary>
         /// If the user is in placing mode, display the spatial mapping mesh.
         /// </summary>
-        private void ToggleSpatialMesh()
+        protected void ToggleSpatialMesh()
         {
             if (SpatialMappingManager.Instance != null && AllowMeshVisualizationControl)
             {
